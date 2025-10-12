@@ -1,0 +1,44 @@
+#include <iostream>
+using namespace std;
+int main()
+{
+    while (true)
+    {
+        int m{0};
+        cin >> m;
+        if (m == 0)
+            return 0;
+        else
+        {
+            int t{0}, p{1}, MAX{1};
+            int A[25]={};
+            for (int i{1}; i <= m ; i++)
+            {
+                int n{0};
+                cin >> A[i] ;
+            }
+            for (int i{1}; i <= m; i++)
+            {
+                if (i == 1)
+                {
+                    t = A[1];
+                }
+                else
+                {
+                    if (A[i] == t)
+                    {
+                        p++;
+                        if (p > MAX)
+                            MAX = p;
+                    }
+                    else
+                    {
+                        t=A[i];
+                        p = 1;
+                    }
+                }
+            }
+            cout << MAX << endl;
+        }
+    }
+}
