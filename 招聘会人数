@@ -1,0 +1,49 @@
+#include <iostream>
+using namespace std;
+int main()
+{
+    int n{0}, p{0}, A[1001] = {}, B[1001] = {}, C[1001] = {};
+int m{0};
+    char c;
+    while (cin >> m)
+    {
+        p++;
+        if (p < 1001)
+        {
+            A[p] = m;
+        }
+        if (cin.peek() == ',')
+        {
+            cin.get(c);
+        }
+        else
+        {
+            break;
+        }
+    }
+    for (int i = 1; i <= p; i++)
+    {
+        cin>>m;
+        B[i] = m;
+        if (cin.peek() == ',')
+        {
+            cin.get(c);
+        }
+    }
+    for (int i = 1; i <= 1001; i++)
+    {
+        for (int j{1}; j <= p; j++)
+        {
+            if (i < B[j] && i >= A[j])
+            {
+                C[i]++;
+            }
+        }
+    }
+    for (int i{1}; i <= 1001; i++)
+    {
+        if (C[i] > n)
+            n = C[i];
+    }
+    cout << p << " " << n << endl;
+}
