@@ -1,0 +1,30 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+void wx(int n) {
+    int k = 0;
+    int p = 1;
+    while (p * 2 <= n) {
+        p *= 2;
+        k++;
+    }
+    int n2 = n - p;
+    if (k == 0) {
+        cout << "2(0)";
+    } else if (k == 1) {
+        cout << "2";
+    } else {
+        cout << "2(";
+        wx(k);
+        cout << ")";
+    }
+    if (n2 > 0) {
+        cout << "+";
+        wx(n2);
+    }
+}
+int main() {
+    int n;
+    cin>>n;
+    wx(n);
+}
