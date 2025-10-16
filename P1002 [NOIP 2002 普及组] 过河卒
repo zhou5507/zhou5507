@@ -1,0 +1,68 @@
+#include <iostream>
+using namespace std;
+int x{0}, y{0};
+long long t{0};
+int A[23][23] = {};
+int n{0}, m{0}, p{0}, q{0};
+void wx()
+{
+    if (x > n || y > m || A[x][y] == 1)
+    {
+        return;
+    }
+    bool A1{A[x + 1][y] == 1 || x == n};
+    bool A2{A[x][y + 1] == 1 || y == m};
+    if (x == n && y == m)
+    {
+        t++;
+        return;
+    }
+    else
+    {
+        if (A1 + A2 == 2)
+        {
+            return;
+        }
+    }
+    if (A1 == 1 && A2 == 0)
+    {
+        y++;
+        wx();
+        y--;
+    }
+    if (A1 == 0 && A2 == 1)
+    {
+        x++;
+        wx();
+        x--;
+    }
+    if (A1 + A2 == 0)
+    {
+        y++;
+        wx();
+        y--;
+        x++;
+        wx();
+        x--;
+    }
+}
+int main()
+{
+    cin >> n >> m >> p >> q;
+    A[p + 1][q + 2] = 1;
+    A[p + 2][q + 1] = 1;
+    A[p + 2][q - 1] = 1;
+    A[p + 1][q - 2] = 1;
+    A[p - 2][q + 1] = 1;
+    A[p - 2][q - 1] = 1;
+    A[p - 1][q + 2] = 1;
+    A[p - 1][q - 2] = 1;
+    A[p][q] = 1;
+    if (A[0][0] == 1)
+    {
+        cout << 0 << endl;
+        return 0;
+    }
+    wx();
+    cout << t << endl;
+}
