@@ -1,0 +1,30 @@
+#include <iostream>
+#include <vector>
+#include <cmath>
+#include <iomanip>
+using namespace std;
+double wx(double a,double b){
+    double t{0};
+    t=pow(a-b,2);
+    return t;
+}
+int main(){
+    int n{0};
+    vector<double>A;
+    cin>>n;
+    double SUM{0},p{0};
+    for(int i{0};i<n;i++){
+        double m{0};
+        cin>>m;
+        A.push_back(m);
+        SUM+=m;
+    }
+    double ave{0},D{0};
+    ave=SUM/n;
+    double HH{0};
+    for (int i{0};i<n;i++){
+    p+=wx(A[i],ave);
+    }
+    D=p/n;
+cout<<fixed<<setprecision(5)<<ave<<" "<<D<<endl;
+}
