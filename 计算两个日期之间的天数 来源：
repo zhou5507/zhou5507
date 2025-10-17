@@ -1,0 +1,127 @@
+#include <iostream>
+using namespace std;
+int wx(int m)
+{
+    bool M{m % 4 == 0 && m % 100 != 0};
+    bool MM{m%400==0};
+    return M+MM;
+}
+struct date
+{
+    int year{0};
+    int month{0};
+    int day{0};
+};
+int day(int a, int b, int c)
+{
+    int t{c};
+    if (wx(a) == 0)
+    {
+        for (int j{1}; j < b; j++)
+        {
+            switch (j)
+            {
+            case 1:
+                t += 31;
+                break;
+            case 2:
+                t += 28;
+                break;
+            case 3:
+                t += 31;
+                break;
+            case 4:
+                t += 30;
+                break;
+            case 5:
+                t += 31;
+                break;
+            case 6:
+                t += 30;
+                break;
+            case 7:
+                t += 31;
+                break;
+            case 8:
+                t += 31;
+                break;
+            case 9:
+                t += 30;
+                break;
+            case 10:
+                t += 31;
+                break;
+            case 11:
+                t += 30;
+                break;
+            default:
+                t += 31;
+                break;
+            }
+        }
+    }
+    else
+    {
+        for (int j{1}; j < b; j++)
+        {
+            switch (j)
+            {
+            case 1:
+                t += 31;
+                break;
+            case 2:
+                t += 29;
+                break;
+            case 3:
+                t += 31;
+                break;
+            case 4:
+                t += 30;
+                break;
+            case 5:
+                t += 31;
+                break;
+            case 6:
+                t += 30;
+                break;
+            case 7:
+                t += 31;
+                break;
+            case 8:
+                t += 31;
+                break;
+            case 9:
+                t += 30;
+                break;
+            case 10:
+                t += 31;
+                break;
+            case 11:
+                t += 30;
+                break;
+            default:
+                t += 31;
+                break;
+            }
+        }
+    }
+    return t;
+}
+int main()
+{
+    int a1{0}, a2{0}, a3{0}, b1{0}, b2{0}, b3{0};
+    cin >> a1 >> a2 >> a3 >> b1 >> b2 >> b3;
+    date DAY1{a1, a2, a3};
+    date DAY2{b1, b2, b3};
+    int n{0}, p{0}, N{0};
+    n = (b1 - a1) * 365;
+    for (int i{a1 + 1}; i < b1; i++)
+        p += wx(i);
+    int r{0}, s{0};
+    r = 365 - day(a1, a2, a3) + wx(a1);
+    s = day(b1, b2, b3);
+    if(a1!=b1){
+    p = p + s + r+n-365;}
+    else p=-day(a1,a2,a3)+day(b1,b2,b3);
+    cout << p << endl;
+}
