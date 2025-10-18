@@ -1,0 +1,64 @@
+#include <iostream>
+using namespace std;
+int j{0};
+int row{0}, col{0}, t{0};
+int A[100][100] = {0};
+void wx()
+{
+    for (int m{j}; m <= col - 1 - j; m++)
+    {
+        cout << A[j][m] << endl;
+    }
+    for (int m{j + 1}; m <= row - 1 - j; m++)
+    {
+        cout << A[m][col - 1 - j] << endl;
+    }
+    for (int m{col - 2 - j}; m >= j; m--)
+    {
+        cout << A[row - 1 - j][m] << endl;
+    }
+    for (int m{row - 2 - j}; m >= j + 1; m--)
+    {
+        cout << A[m][j] << endl;
+    }
+}
+int main()
+{
+    cin >> row >> col;
+    for (int p{0}; p <= row - 1; p++)
+    {
+        for (int q{0}; q <= col - 1; q++)
+        {
+            int g{0};
+            cin >> g;
+            A[p][q] = g;
+        }
+    }
+    if (row <= col)
+        t = row;
+    else
+        t = col;
+
+    for (; j < t / 2; j++)
+    {
+        wx();
+    }
+    if (t % 2 != 0)
+    {
+        j = (t - 1) / 2;
+        if (col >= row)
+        {
+            for (int m{j}; m <= col - 1 - j; m++)
+            {
+                cout << A[j][m] << endl;
+            }
+        }
+        else
+        {
+            for (int m{j}; m <= row - 1 - j; m++)
+            {
+                cout << A[m][j] << endl;
+            }
+        }
+    }
+}
