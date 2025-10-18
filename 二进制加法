@@ -1,0 +1,60 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+int main()
+{
+    int n{0};
+    cin >> n;
+    cin.ignore(100,'\n');
+    for (int i{1}; i <= n; i++)
+    {
+        vector<int> A;
+        char c;
+        while (cin.get(c))
+        {
+            if (c == '\n')
+                break;
+            A.push_back(c - '0');
+        }
+        vector<int> B;
+        char d;
+        while (cin.get(d))
+        {
+            if (d == '\n')
+                break;
+            B.push_back(d - '0');
+        }
+        int LA{0},LB{0};
+        LA=A.size();
+        LB=B.size();
+        if (LA >= LB)
+        {
+            for (int i{0}; i <LA - LB; i++)
+            {
+                B.insert(B.begin(), 0);
+            }
+        }
+        else
+        {
+            for (int i{0}; i < LB - LA; i++)
+            {
+                A.insert(A.begin(), 0);
+            }
+        }
+        int x{0};
+        vector<int> C(LA+1);
+        for (int j{LA- 1}; j >= 0; j--)
+        {
+            int g{0};
+            g = A[j] + B[j] + x;
+            C[j+1] = g % 2;
+            x = g / 2;
+        }
+        C[0]=x;
+        for (int f{(C[0]==0)?1:0}; f < C.size(); f++)
+        {
+            cout << C[f];
+        }
+        cout << endl;
+    }
+}
