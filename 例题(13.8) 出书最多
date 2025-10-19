@@ -1,0 +1,80 @@
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+int main()
+{
+    int S{0};
+    cin >> S;
+    vector<int> Num;
+    vector<string> Aut;
+    vector<char> A;
+    vector<int> B;
+    for (int j{0}; j < S; j++)
+    {
+        int num{0};
+        string aut;
+        cin >> num >> aut;
+        Num.push_back(num);
+        Aut.push_back(aut);
+    }
+    string s;
+    s = Aut[0];
+    A.push_back(s[0]);
+    B.push_back(0);
+    for (int j{0}; j < S; j++)
+    {
+        string aut;
+        aut = Aut[j];
+        int L{0};
+        L = aut.size();
+        for (int i{0}; i < L; i++)
+        {
+            int K{0};
+            K = A.size();
+            int y{0};
+            for (int k{0}; k < K; k++)
+            {
+                if (aut[i] == A[k]){
+                    y++;
+                    B[k]++;
+                    break;
+                }
+            }
+            if(y==0){
+                A.push_back(aut[i]);
+                B.push_back(1);
+            }
+        }
+    }
+    char d;
+    int t{B[0]}, f{0};
+    int J{0};
+    J = B.size();
+    for (int i{0}; i < J; i++)
+    {
+        if (B[i] > t)
+        {
+            t = B[i];
+            f = i;
+        }
+    }
+    d = A[f];
+    cout << d << endl;
+    cout << t << endl;
+    for (int j{0}; j < S; j++)
+    {
+        string aut;
+        aut = Aut[j];
+        int L{0};
+        L = aut.size();
+        for (int i{0}; i < L; i++)
+        {
+            if (aut[i] == d)
+            {
+                cout << Num[j] << endl;
+                break;
+            }
+        }
+    }
+}
