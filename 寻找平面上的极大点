@@ -1,0 +1,35 @@
+#include <iostream>
+using namespace std;
+int main(){
+    int n{0},A[100],B[100]{};
+    cin>>n;
+    for (int i{0};i<n;i++){
+        int a{0},b{0};
+        cin >>a>>b;
+        A[i]=a;
+        B[i]=b;
+    }
+    int q{1};
+    while(q<=n-1){
+    for (int i{0};i<n-1;i++){
+        if(A[i]>A[i+1]||A[i]==A[i+1]&&B[i]>B[i+1]){
+            int p1{0},p2{0};
+            p1=A[i+1];
+            A[i+1]=A[i];
+            A[i]=p1;
+            p2=B[i+1];
+            B[i+1]=B[i];
+            B[i]=p2;
+        }
+    }
+    q++;
+}
+for (int i{0};i<n-1;i++){
+    int m{0};
+    for (int j{n-1};j>i;j--){
+        if (B[i]<=B[j])m++;
+    }
+    if(m==0)cout<<"("<<A[i]<<","<<B[i]<<")"<<",";
+}
+cout<<"("<<A[n-1]<<","<<B[n-1]<<")"<<endl;
+}
