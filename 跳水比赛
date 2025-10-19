@@ -1,0 +1,56 @@
+#include <iostream>
+using namespace std;
+int main()
+{
+    int T[5]{};
+    for (int a = 1; a <= 5; ++a)
+    {
+        T[0] = a;
+        for (int b = 1; b <= 5; ++b)
+        {
+            if (b == a)
+                continue;
+            T[1] = b;
+
+            for (int c = 1; c <= 5; ++c)
+            {
+                if (c == a || c == b)
+                    continue;
+                T[2] = c;
+                for (int d = 1; d <= 5; ++d)
+                {
+                    if (d == a || d == b || d == c)
+                        continue;
+                    T[3] = d;
+                    for (int e = 1; e <= 5; ++e)
+                    {
+                        T[4] = e;
+                        if (e == a || e == b || e == c || e == d)
+                            continue;
+                        bool A1{T[0] == 3};
+                        bool A2{T[1] == 2};
+                        bool A{A1 + A2 == 1};
+                        bool B1{T[1] == 2};
+                        bool B2{T[4] == 4};
+                        bool B{B1 + B2 == 1};
+                        bool C1{T[2] == 1};
+                        bool C2{T[3] == 2};
+                        bool C{C1 + C2 == 1};
+                        bool D1{T[2] == 5};
+                        bool D2{T[3] == 3};
+                        bool D{D1 + D2 == 1};
+                        bool E1{T[4] == 4};
+                        bool E2{T[0] == 1};
+                        bool E{E1 + E2 == 1};
+                        if (A + B + C + D + E == 5)
+                        {
+                            for (int j{0} ; j <= 4; j++)
+                                cout << T[j] << endl;
+                            return 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
