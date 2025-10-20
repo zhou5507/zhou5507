@@ -1,0 +1,71 @@
+#include <iostream>
+using namespace std;
+int main() {
+	int r{ 0 }, c{ 0 };
+	cin >> r >> c;
+	int A[100][100]{};
+	for (int i{ 0 };i < r;i++) {
+		for (int j{ 0 };j < c;j++) {
+			int t{ 0 };
+			cin >> t;
+			A[i][j] = t;
+		}
+	}
+	int m{ 1 };
+	int p{ 0 }, q{ 0 }, g{ 1 },f{0},u{1};
+	while (m <= r * c) {
+		cout << A[p][q] << endl;
+		if (r >= c) {
+			if (q == 0 && p < c - 1) {
+				q = g;
+				g++;
+				p = 0;
+                m++;
+				continue;
+			}
+			if (q == 0 && p >= c - 1) {
+				q = c - 1;
+				p = u;
+                m++;
+                u++;
+				continue;
+			}
+			if (p == r - 1) {
+				q = c-1;
+				p = u;
+                u++;
+                m++;
+				continue;
+			}
+			p++;
+			q--;
+            m++;
+		}
+		else {
+			if (q == 0) {
+				q = g;
+				g++;
+				p = 0;
+                m++;
+				continue;
+			}
+			if (q > 0 && p == r - 1&&q<c-r) {
+				q = g;
+				g++;
+				p = 0;
+                m++;
+				continue;
+			}
+			if (q>=c-r&&p==r-1) {
+				q = c-1;
+				p = u;
+                u++;
+                m++;
+				continue;
+			}
+			p++;
+			q--;
+            m++;
+		}
+	}
+}
