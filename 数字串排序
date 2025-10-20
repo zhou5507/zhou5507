@@ -1,0 +1,59 @@
+#include <iostream>
+#include <string>
+using namespace std;
+bool A(char c) {
+    return c >= '0' && c <= '9';
+}
+int WX(string s)
+{
+    int t = 0;
+    for (int i = 0; i < s.length(); ++i) {
+        t = t * 10 + (s[i] - '0');
+    }
+    return t;
+}
+int main() {
+    int N[150]; 
+    int c1 = 0;        
+    string S;
+    getline(cin,S);
+    string a = ""; 
+    for (int i = 0; i < S.length(); ++i) {
+        char c = S[i];
+        if (A(c)) {
+            a += c;
+        } else {
+            if (a.length()>0) {
+                if (c1 < 150) {
+                    N[c1++] = WX(a);
+                }
+                a = ""; 
+            }
+        }
+    }
+    if (a.length()>0) {
+        if (c1 < 150) {
+            N[c1++] = WX(a);
+        }
+    }
+    if (c1 == 0) {
+        cout << 0 << endl;
+        return 0;
+    }
+    int n{c1};
+    for (int i = 0; i < n - 1; ++i) {
+        for (int j = 0; j < n - 1 - i; ++j) {
+            if (N[j] > N[j + 1]) {
+                int temp = N[j];
+                N[j] = N[j + 1];
+                N[j + 1] = temp;
+            }
+        }
+    }
+    for (int i = 0; i < c1; ++i) {
+        cout << N[i];
+        if (i < c1 - 1) {
+            cout << ",";
+        }
+    }
+}
