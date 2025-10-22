@@ -1,0 +1,121 @@
+#include <iostream>
+#include <string>
+#include <cmath>
+#include <vector>
+using namespace std;
+void WX(string &M)
+{
+    for (int i{0}; i < M.length(); i++)
+    {
+        if (M[i] >= '0' && M[i] <= '9')
+        {
+            M[i] = M[i] -
+                   '0';
+            continue;
+        }
+
+        switch (M[i])
+        {
+        case 'a':
+            M[i] = 10;
+            break;
+        case 'b':
+            M[i] = 11;
+            break;
+        case 'c':
+            M[i] = 12;
+            break;
+        case 'd':
+            M[i] = 13;
+            break;
+        case 'e':
+            M[i] = 14;
+            break;
+        default:
+            M[i] = 15;
+            break;
+        }
+    }
+}
+
+using namespace std;
+int main()
+{
+    int a{0}, b{0};
+    string A, B;
+    cin >> a >> A >> b >> B;
+    int c{0};
+    cin >> c;
+    WX(A);
+    WX(B);
+    long long p{0}, q{0};
+    int A1 = A.size();
+    for (int i(0); i < A1; i++)
+    {
+        int k{0};
+        k = A[i] * pow(a, A1- 1 - i);
+        p += k;
+    }
+    int B1 = B.size();
+    for (int i(0); i < B1; i++)
+    {
+        int k{0};
+        k = B[i] * pow(b, B1- 1 - i);
+        q += k;
+    }
+    long long s{0};
+    s = p + q;
+    vector<int> S;
+    if (s == 0)
+    {
+        S.push_back(
+            0);
+    }
+    else
+    {
+        while (s > 0)
+        {
+            S.push_back(s % c);
+            s = s / c;
+        }
+    }
+    int S1 = S.size();
+    vector<char> T;
+    for (int i{0}; i < S1; i++)
+    {
+        int v = S[i];
+        if (v >= 0 && v <= 9) {
+            T.push_back(v + '0');
+            continue;
+        }
+        switch (v)
+        {
+        case 10:
+            T.push_back('a');
+            break;
+        case 11:
+            T.push_back('b');
+            break;
+        case 12:
+            T.push_back('c');
+            break;
+        case 13:
+            T.push_back('d');
+            break;
+        case 14:
+            T.push_back('e');
+            break;
+        case 15:
+            T.push_back('f');
+            break;
+        default:
+            break;
+        }
+    }
+    int L{0};
+    L = T.size();
+    for (int i{L - 1}; i >= 0; i--)
+    {
+        cout << T[i];
+    }
+}
