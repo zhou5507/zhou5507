@@ -1,0 +1,70 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <ctime>
+using namespace std;
+int YEAR(string& s) {
+    int r{0};
+    for (char c : s) {
+        if (c >= '0' && c <= '9') {
+            r = r * 10 + (c - '0');
+        }
+    }
+    return r;
+}
+int DAY(string& s) {
+    int r{0};
+    for (char c : s) {
+        if (c >= '0' && c <= '9') {
+            r = r * 10 + (c - '0');
+        }
+    }
+    return r;
+}
+int MON(string& s) {
+    if (s == "Jan") return 1;
+    else if (s == "Feb") return 2;
+    else if (s == "Mar") return 3;
+    else if (s == "Apr") return 4;
+    else if (s == "May") return 5;
+    else if (s == "Jun") return 6;
+    else if (s == "Jul") return 7;
+    else if (s == "Aug") return 8;
+    else if (s == "Sep") return 9;
+    else if (s == "Oct") return 10;
+    else if (s == "Nov") return 11;
+    else if (s == "Dec") return 12;
+    else return 0; 
+}
+int main() {
+    int n{ 0 };
+    cin >> n;
+	cin.ignore();
+    const char *week[7] = {"Sun.", "Mon.", "Tue.", "Wed.", "Thu.", "Fri.", "Sat."};
+    for (int i{ 0 };i < n;i++) {
+        string a, b, c;
+		getline(cin,a,'-');
+		getline(cin,b,'-');
+		getline(cin,c);
+        string M[3];
+        int A{ 0 }, B{ 0 }, C{ 0 };
+        A = a.size();
+        B = b.size();
+        C = c.size();
+        M[4 - A] = a;
+        M[4 - B] = b;
+        M[4 - C] = c;
+        int year = YEAR(M[0]); 
+        int month = MON(M[1]);
+        int day = DAY(M[2]);   
+        tm t = {};
+        t.tm_year = year - 1900;
+        t.tm_mon = month - 1;
+        t.tm_mday = day;
+        if (mktime(&t) == (time_t)-1) {
+            continue; 
+        }
+        cout << week[t.tm_wday] << endl;
+    }
+    return 0;
+}
