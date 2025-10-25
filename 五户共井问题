@@ -1,0 +1,62 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <Eigen/Dense>
+using namespace std;
+int main()
+{
+    int m{0};
+    cin >> m;
+    double a1{0}, a2{0}, a3{0}, a4{0}, a5{0};
+    cin >> a1 >> a2 >> a3 >> a4 >> a5;
+    int n{0};
+    n = m * 100;
+    const long long H = 10000000000LL;
+    for (int i{1}; i <= n; i++)
+    {
+        Eigen::MatrixXd A(5, 5);
+        A << a1, 1, 0, 0, 0,
+            0, a2, 1, 0, 0,
+            0, 0, a3, 1, 0,
+            0, 0, 0, a4, 1,
+            1, 0, 0, 0, a5;
+        Eigen::VectorXd b(5);
+        b << i, i, i, i, i;
+        Eigen::VectorXd x = A.colPivHouseholderQr().solve(b);
+        long long R[5];
+        int y{0};
+        for (int j{0}; j < 5; j++)
+        {
+            if (x(j) <= 0.0)
+            {
+                y++;
+                break;
+            }
+            long long h = (long long)(x(j) * H + 0.5);
+            if (h % H != 0)
+            {
+                y++;
+                break;
+            }
+            R[j] = h / H;
+        }
+        if (y == 0)
+        {
+            long long A_len = R[0];
+            long long B_len = R[1];
+            long long C_len = R[2];
+            long long D_len = R[3];
+            long long E_len = R[4];
+            if (A_len != B_len && A_len != C_len && A_len != D_len && A_len != E_len &&
+                B_len != C_len && B_len != D_len && B_len != E_len &&
+                C_len != D_len && C_len != E_len &&
+                D_len != E_len)
+            {
+                cout << i << " " << A_len << " " << B_len << " " << C_len << " " << D_len << " " << E_len << endl;
+                return 0;
+            }
+        }
+    }
+    cout << "not found" << endl;
+    return 0;
+}
