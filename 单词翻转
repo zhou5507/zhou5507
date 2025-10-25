@@ -1,0 +1,29 @@
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+int main() {
+	vector<string>A;
+	char c;
+	while (true) {
+		string s;
+		if (cin.peek() == ' ') cin.get();
+		else if (cin.peek() == '\n')break;
+		else;
+		cin>>s;
+		A.push_back(s);
+	}
+	int LA{ 0 };
+	LA = A.size();
+	int p{ 0 };
+	for (int i{ 0 };i<LA;i++) {
+		int LS{ 0 };
+		string S;
+		S = A[i];
+		LS = S.length();
+		for (int j{ LS - 1 };j >= 0;j--) {
+			cout << S[j];
+		}
+		cout << endl;
+	}
+}
