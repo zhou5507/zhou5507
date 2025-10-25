@@ -1,0 +1,24 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+int main(){
+    vector<int>A;
+    vector<int>B;
+    for(int i{0};i<10;i++){
+        int s{0};
+        cin>>s;
+        A.push_back(s);
+    }
+    for(int i{0};i<10;i++){
+        int s{0};
+        cin>>s;
+        B.push_back(s);
+    }
+    A.insert(A.end(), B.begin(), B.end());
+    sort(A.begin(),A.end());
+    cout<<A[0];
+    for(int i{1};i<20;i++){
+        cout<<" "<<A[i];
+    }
+}
