@@ -1,0 +1,51 @@
+#include <iostream>
+using namespace std;
+int main(){
+    int m{0},n{0},S[100][100]{},M[100][100]{};
+    cin>>m>>n;
+    for (int i{0};i<m;i++){
+        for (int j{0};j<n;j++){
+            int t{0};
+            cin>>t;
+            S[i][j]=t;
+        }
+    }
+    for (int i{0};i<m;i++){
+        int A{0};
+        for (int j{0};j<n;j++){
+            if(S[i][j]>A){
+                A=S[i][j];
+            }
+        }
+        for (int j{0};j<n;j++){
+            if(S[i][j]==A){
+                M[i][j]++;
+            }
+        }
+    }
+    for (int i{0};i<n;i++){
+        int A{2000};
+        for (int j{0};j<m;j++){
+            if(S[j][i]<A){
+                A=S[j][i];
+            }
+        }
+        for (int j{0};j<m;j++){
+            if(S[j][i]==A){
+                M[j][i]++;
+            }
+        }
+    }
+    int u{0};
+    for (int i{0};i<m;i++){
+        for (int j{0};j<n;j++){
+            if(M[i][j]==2){
+                cout<<i+1<<" "<<j+1<<" "<<S[i][j]<<endl;
+                u++;
+            }
+        }
+    }
+    if(u==0){
+        cout<<"No"<<endl;
+    }
+}
