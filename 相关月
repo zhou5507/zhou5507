@@ -1,0 +1,22 @@
+#include <iostream>
+#include <ctime>
+using namespace std;
+int main(){
+    int n{0};
+    cin>>n;
+    for (int i{0};i<n;i++){
+        int year{0},m1{0},m2{0},w1{0},w2{0};
+        cin>>year>>m1>>m2;
+        tm t = {};
+        t.tm_year=year-1900;
+        t.tm_mon=m1-1;
+        t.tm_mday=1;
+        mktime(&t);
+        w1=t.tm_wday;
+        t.tm_mon=m2-1;
+        mktime(&t);
+        w2=t.tm_wday;
+        if(w1==w2)cout<<"YES"<<endl;
+        else cout<<"NO"<<endl;
+    }
+}
