@@ -1,0 +1,100 @@
+#include <iostream>
+using namespace std;
+char A[10][10], B[10][10];
+bool A1(int N)
+{
+    for (int i = 0; i < N; i++)
+    {
+        for (int j = 0; j < N; j++)
+        {
+            if (B[j][N - 1 - i] != A[i][j])
+            {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+bool A2(int N)
+{
+    for (int i = 0; i < N; i++)
+    {
+        for (int j = 0; j < N; j++)
+        {
+            if (B[N - 1 - j][i] != A[i][j])
+            {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+bool A3(int N)
+{
+    for (int i = 0; i < N; i++)
+    {
+        for (int j = 0; j < N; j++)
+        {
+            if (B[N - 1 - i][N - 1 - j] != A[i][j])
+            {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+bool A4(int N)
+{
+    for (int i = 0; i < N; i++)
+    {
+        for (int j = 0; j < N; j++)
+        {
+            if (B[i][j] != A[i][j])
+            {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+int main()
+{
+    int N;
+    (cin >> N);
+
+    for (int i = 0; i < N; i++)
+    {
+        for (int j = 0; j < N; j++)
+        {
+            (cin >> A[i][j]);
+        }
+    }
+    for (int i = 0; i < N; i++)
+    {
+        for (int j = 0; j < N; j++)
+        {
+            (cin >> B[i][j]);
+        }
+    }
+    if (A1(N))
+    {
+        cout << "1" << endl;
+    }
+    else if (A2(N))
+    {
+        cout << "2" << endl;
+    }
+    else if (A3(N))
+    {
+        cout << "3" << endl;
+    }
+    else if (A4(N))
+    {
+        cout << "4" << endl;
+    }
+    else
+    {
+        cout << "5" << endl;
+    }
+    return 0;
+}
