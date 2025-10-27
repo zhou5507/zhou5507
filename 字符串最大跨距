@@ -1,0 +1,21 @@
+#include <iostream>
+#include <string>
+using namespace std;
+int main(){
+    string s,a,b;
+    getline(cin,s,',');
+    getline(cin,a,',');
+    getline(cin,b);
+    int LA{0};
+    LA=a.size();
+    int m{0},n{0};
+    m=s.find(a);
+    n=s.rfind(b);
+    int d{0};
+    d=n-LA-m;
+    if(d<0||m<0||n<0){
+        cout<<"-1"<<endl;
+        return 0;
+    }
+    else cout<<d<<endl;
+}
