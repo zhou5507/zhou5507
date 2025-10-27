@@ -1,0 +1,72 @@
+#include <iostream>
+using namespace std;
+int day(int a, int b)
+{
+    int t{0};
+    for (int j{a}; j < b; j++)
+    {
+        switch (j)
+        {
+        case 1:
+            t += 31;
+            break;
+        case 2:
+            t += 28;
+            break;
+        case 3:
+            t += 31;
+            break;
+        case 4:
+            t += 30;
+            break;
+        case 5:
+            t += 31;
+            break;
+        case 6:
+            t += 30;
+            break;
+        case 7:
+            t += 31;
+            break;
+        case 8:
+            t += 31;
+            break;
+        case 9:
+            t += 30;
+            break;
+        case 10:
+            t += 31;
+            break;
+        case 11:
+            t += 30;
+            break;
+        default:
+            t += 31;
+            break;
+        }
+    }
+    return t;
+}
+int main()
+{
+    int n{0};
+    cin >> n;
+    int m{0};
+    for (int i{0}; i < n; i++)
+    {
+        int y{0}, m1{0}, m2{0},m11{0},m22{0};
+        cin >> y >> m11 >> m22;
+        m1=m11<m22?m11:m22;
+        m2=m11>m22?m11:m22;
+        m = day(m1, m2);
+        if (y % 4 == 0 && y % 100 != 0 || y % 400 == 0)
+        {
+            if (m1 <= 2 && m2 > 2)
+                m++;
+        }
+        if (m % 7 == 0)
+            cout << "YES" << endl;
+        else
+            cout << "NO" << endl;
+    }
+}
