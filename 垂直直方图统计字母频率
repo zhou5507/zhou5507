@@ -1,0 +1,48 @@
+#include <iostream>
+#include <string>
+#include <stdio.h>
+using namespace std;
+int main() {
+	string a, b, c, d,e;
+	getline(cin, a);
+	getline(cin, b);
+	getline(cin, c);
+	getline(cin, d);
+	e = a + b + c + d;
+	int LE{ 0 };
+	LE = e.length();
+	int A[26]{};
+	for (int i{ 0 };i < LE;i++) {
+		int t{ 0 };
+		t = e[i] - 'A';
+		if (t >= 0 && t < 26) {
+			A[t]++;
+		}
+	}
+	int M{ 0 };
+	for (int i{ 0 };i < 26;i++) {
+		M = M > A[i] ? M : A[i];
+	}
+	for (int i{ 0 };i < M;i++) {
+		cout << "#";
+		int k{ 0 };
+		for (int j{ 25 };j >= 0;j--) {
+			if (A[j]< M - i)k++;
+			else break;
+		}
+		for (int j{ 0 };j < 26-k;j++) {
+            cout<<" ";
+			if (A[j] < M - i) {
+				cout << " ";
+			}
+			else cout << "*";
+		}
+		cout << '\n';
+	}
+	cout << "#";
+	for (int i{ 0 };i < 26;i++) {
+		char f;
+		f = i + 'A';
+		cout <<" "<< f;
+	}
+}
