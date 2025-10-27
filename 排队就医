@@ -1,0 +1,40 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <iomanip>
+using namespace std;
+int main(){
+    int n{0};
+    cin>>n;
+    vector<int>A,B;
+    for (int i{0};i<n;i++){
+        int t{0};
+        cin>>t;
+        A.push_back(t);
+        B.push_back(t);
+    }
+    sort(A.begin(),A.end());
+    double t{0},T{0};
+    for(int i{0};i<n;i++){
+        T+=(n-i-1)*A[i];
+    }
+    t=T/n;
+    int u{0};
+    for(int i{0};i<n;i++){
+        for (int j{0};j<n;j++){
+            if (A[i]==B[j]){
+                if (u==0){
+                cout<<j+1;
+                u++;
+            }
+                else{
+                    cout<<" "<<j+1;
+                }
+                B[j]=0;
+                break;
+            }
+        }
+    }
+    cout<<'\n';
+    cout<<fixed<<setprecision(2)<<t<<endl;
+}
