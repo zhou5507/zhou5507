@@ -1,0 +1,36 @@
+#include <iostream>
+#include <vector>  
+using namespace std;
+int main()
+{
+	vector<int> A;
+	char q{};
+	while (q!='\n') {
+		int t{ 0 };
+		cin >> t;
+		A.push_back(t);
+		q = cin.peek();
+	}
+	int n{ 0 };
+	int L{ 0 };
+	L = A.size();
+    int P{0},p{0};
+    for(int i{0};i<L;i++){
+        if(P<A[i]){
+            P=A[i];
+            p=i;
+        }
+    }
+    n=P*L;
+    int left{0},right{0};
+    for(int i{0};i<p;i++){
+        left=left>A[i]?left:A[i];
+        n-=P-left+A[i];
+    }
+    for(int i{L-1};i>p;i--){
+        right=right>A[i]?right:A[i];
+        n-=P-right+A[i];
+    }
+    n-=P;
+    cout<<n<<endl;
+}
