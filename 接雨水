@@ -1,0 +1,45 @@
+#include <iostream>
+#include <vector>
+#include <sstream> 
+#include <string>  
+using namespace std;
+int main()
+{
+	vector<int> A;
+	string line;
+	getline(cin, line);
+	stringstream ss(line);
+	int t{ 0 };
+	while(ss >> t) {
+			A.push_back(t);
+		}
+	int n{ 0 };
+	int L{ 0 };
+	L = A.size();
+	int b{ 0 }, c{ 0 };
+	int p{ 0 }, P{ 0 }, Q{ 0 };
+	while (b != L - 1) {
+		for (int i{ b };i < L;i++) {
+			if (p > A[i]) {
+				n += p - A[i];
+			}
+			else {
+				p = A[i];
+				P = i;
+			}
+		}
+		for (int i{ L - 1 };i > P; i--) {
+			if (c >= A[i]) {
+				n -= p - c;
+			}
+			else {
+				c = A[i];
+				n -= p - c;
+				Q = i;
+			}
+		}
+		b = Q + 1;
+		P = 0;
+	}
+	cout << n << endl;
+}
