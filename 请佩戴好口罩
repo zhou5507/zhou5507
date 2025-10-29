@@ -1,0 +1,72 @@
+#include <iostream>
+using namespace std;
+int main()
+{
+    int A[105][105]{}, B[105][105]{}, n{0};
+    cin >> n;
+    for (int i{1}; i <= n; i++)
+    {
+        for (int j{1}; j <= n; j++)
+        {
+            cin >> A[i][j];
+        }
+    }
+    int x{1}, y{1}, d{1};
+    cin >> x >> y >> d;
+    B[x+1][y+1]++;
+    for (int day{1}; day <= d; day++)
+    {
+        int NextB[105][105]{};
+        for (int r = 1; r <= n; ++r)
+        {
+            for (int c = 1; c <= n; ++c)
+            {
+                NextB[r][c] = B[r][c];
+            }
+        }
+        for (int i{1}; i <= n; i++)
+        {
+            for (int j{1}; j <= n; j++)
+            {
+                if (B[i][j] == 0)
+                {
+                    if (A[i][j] == 0)
+                    {
+                        if (B[i + 1][j] != 0 && A[i + 1][j] == 0 ||
+                            B[i - 1][j] != 0 && A[i - 1][j] == 0 ||
+                            B[i][j + 1] != 0 && A[i][j + 1] == 0 ||
+                            A[i][j - 1] == 0 && B[i][j - 1] != 0)
+                        {
+                            NextB[i][j]++;
+                        }
+                    }
+                    else
+                    {
+                        if (B[i + 1][j] == 1 && A[i + 1][j] == 0 && B[i - 1][j] == 1 &&
+                            B[i][j + 1] == 1 && B[i][j - 1] == 1 &&
+                            A[i - 1][j] == 0 &&
+                            A[i][j + 1] == 0 && A[i][j - 1] == 0&&i!=1&&i!=n&&j!=1&&j!=n)
+                            NextB[i][j]++;
+                    }
+                }
+            }
+        }
+        for (int r = 1; r <= n; ++r)
+        {
+            for (int c = 1; c <= n; ++c)
+            {
+                B[r][c] = NextB[r][c];
+            }
+        }
+    }
+    int num{0};
+    for (int i{1}; i <= n; i++)
+    {
+        for (int j{1}; j <= n; j++)
+        {
+            if (B[i][j] != 0)
+                num++;
+        }
+    }
+    cout << num << endl;
+}
