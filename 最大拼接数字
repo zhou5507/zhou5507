@@ -1,0 +1,53 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+double WX(int t) {
+	double m{ 1.0 };
+	while (m < t) {
+		m *= 10.0;
+	}
+	m = t * 10 / m;
+	return m;
+}
+int wx(int t) {
+		int a{ 0 };
+		if (t < 10)a = t * 111;
+		if(t>9&&t<100)a = t * 101;
+		if (t >= 100&&t<1000)a = t * 1001;
+		if (t >= 1000)a = t * 100 + 99;
+		return a;
+}
+using namespace std;
+int main() {
+	int n{ 0 };
+	cin >> n;
+	vector<int>A,B;
+	vector<double>C;
+	for (int i{ 0 };i < n;i++) {
+		int y{ 0 };
+		cin >> y;
+		A.push_back(y);
+		B.push_back(i);
+	}
+	for (int i{ 0 };i < n;i++) {
+		int u{ 0 };
+		double w{ 0 };
+		u=wx(A[i]);
+		w = WX(u);
+		C.push_back(w);
+	}
+	for (int j{ 0 };j < n - 1;j++) {
+		for(int i{0};i<n-j-1;i++){
+			if (C[i] < C[i + 1]) {
+				swap(B[i], B[i + 1]);
+				swap(C[i], C[i + 1]);
+			}
+		}
+	}
+	for (int i{ 0 };i < n;i++) {
+		int p{ 0 };
+		p = B[i];
+		cout << A[p];
+	}
+}
