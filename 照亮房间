@@ -1,0 +1,122 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <string>
+#include <cmath> 
+using namespace std;
+struct XY
+{
+    int x;
+    int y;
+};
+bool tuao(const vector<XY> &pos)
+{
+    int n = pos.size();
+    if (n < 4) return true;
+    long long min_x = pos[0].x;
+    long long max_x = pos[0].x;
+    long long min_y = pos[0].y;
+    long long max_y = pos[0].y;
+    long long pre1 = 0; 
+    for (int i = 0; i < n; ++i)
+    {
+        const XY &p1 = pos[i];
+        const XY &p2 = pos[(i + 1) % n];
+        pre1 += (long long)abs(p2.x - p1.x) + (long long)abs(p2.y - p1.y);
+        min_x = min(min_x, (long long)p1.x);
+        max_x = max(max_x, (long long)p1.x);
+        min_y = min(min_y, (long long)p1.y);
+        max_y = max(max_y, (long long)p1.y);
+    }
+    long long pre2 = 2 * ((max_x - min_x) + (max_y - min_y));
+    return pre1 == pre2;
+}
+int main()
+{
+    while (true)
+    {
+        vector<int> U, D, L, R;
+        int n{0};
+        cin >> n;
+        if (n == 0)
+            break;
+        else
+        {
+            vector<XY> pos(n);
+            for (int i = 0; i < n; ++i)
+            {
+                cin >> pos[i].x >> pos[i].y;
+            }
+
+            if (!tuao(pos))
+            {
+                cout << "No" << endl;
+                continue;
+            }
+            else
+            {
+                int mx2 = pos[0].x;
+                int mx1 = pos[0].x;
+                int my2 = pos[0].y;
+                int my1 = pos[0].y;
+                int G{0};
+                G = pos.size();
+                
+                for (size_t i = 1; i < G; ++i)
+                {
+                    mx2 = min(mx2, pos[i].x);
+                    mx1 = max(mx1, pos[i].x);
+                    my2 = min(my2, pos[i].y);
+                    my1 = max(my1, pos[i].y);
+                }
+                
+                for (int i{0}; i < n; i++)
+                {
+                    if (pos[i].x == mx1)
+                    {
+                        int k{0};
+                        k = pos[i].y;
+                        R.push_back(k);
+                    }
+                    if (pos[i].x == mx2)
+                    {
+                        int k{0};
+                        k = pos[i].y;
+                        L.push_back(k);
+                    }
+                    if (pos[i].y == my1)
+                    {
+                        int k{0};
+                        k = pos[i].x;
+                        U.push_back(k);
+                    }
+                    if (pos[i].y == my2)
+                    {
+                        int k{0};
+                        k = pos[i].x;
+                        D.push_back(k);
+                    }
+                }
+                
+                if (R.size() < 2 || L.size() < 2 || U.size() < 2 || D.size() < 2)
+                {
+                    cout << "No" << endl;
+                }
+                else
+                {
+                    sort(R.begin(), R.end());
+                    sort(L.begin(), L.end());
+                    sort(U.begin(), U.end());
+                    sort(D.begin(), D.end());
+                    
+                    if (R[0] > L[1] || R[1] < L[0] || U[0] > D[1] || U[1] < D[0])
+                    {
+                        cout << "No" << endl;
+                    }
+                    else
+                        cout << "Yes" << endl;
+                }
+            }
+        }
+    }
+}
