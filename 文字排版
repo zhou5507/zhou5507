@@ -1,0 +1,65 @@
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+vector<string> WX()
+{
+    vector<string> words;
+    string now = "";
+    char alpha{};
+    while (cin.get(alpha))
+    {
+        if (alpha!=' ')
+        {
+            now += alpha;
+        }
+        else
+        {
+            if (!now.empty())
+            {
+                words.push_back(now);
+                now = "";
+            }
+        }
+    }
+    if (!now.empty())
+    {
+        words.push_back(now);
+    }
+    return words;
+}
+int main() {
+    int n{ 0 };
+    cin >> n;
+    vector<string>A;
+    A = WX();
+    int L{ 0 };
+    L = A.size();
+    int t{ 0 }, u{ 0 };
+    int k{ 0 };
+    string h;
+    h = A[0];
+    k = h.length();
+    for (int i{ 0 };i < k;i++)cout << h[i];
+    for (int i{ 1 };i < L;i++) {
+        string p;
+        p = A[i];
+        int q{ 0 };
+        if (u == 0) { t += k-1;u++; }
+        q = p.length();
+        if (q + t < 80) {
+            cout << " ";
+            for (int j{ 0 };j < q;j++) {
+                cout << p[j];
+            }
+            t += q+1;
+        }
+        else { 
+            cout << endl;
+            for (int j{ 0 };j < q;j++) {
+                cout << p[j];
+            }
+            t = q;
+        }
+    }
+}
