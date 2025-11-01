@@ -1,0 +1,179 @@
+#include <iostream>
+#include <vector>
+#include <cmath>
+#include <algorithm>
+#include <string>
+using namespace std;
+void WX(string &M)
+{
+    for (int i{0}; i < M.length(); i++)
+    {
+        if (M[i] >= '0' && M[i] <= '9')
+        {
+            M[i] = M[i] - '0';
+            continue;
+        }
+
+        switch (M[i])
+        {
+        case 'a':
+            M[i] = 10;
+            break;
+        case 'b':
+            M[i] = 11;
+            break;
+        case 'c':
+            M[i] = 12;
+            break;
+        case 'd':
+            M[i] = 13;
+            break;
+        case 'e':
+            M[i] = 14;
+            break;
+        default:
+            M[i] = 15;
+            break;
+        }
+    }
+}
+void wx(string &M)
+{
+    int LM{0};
+    LM = M.length();
+    for (int i{0}; i < LM; i++)
+    {
+        int v = M[i];
+        if (v >= 0 && v <= 9)
+        {
+            M[i] = v + '0';
+            continue;
+        }
+        switch (v)
+        {
+        case 10:
+            M[i] = 'a';
+            break;
+        case 11:
+            M[i] = 'b';
+            break;
+        case 12:
+            M[i] = 'c';
+            break;
+        case 13:
+            M[i] = 'd';
+            break;
+        case 14:
+            M[i] = 'e';
+            break;
+        case 15:
+            M[i] = 'f';
+            break;
+        default:
+            break;
+        }
+    }
+}
+string change(string s)
+{
+    string h = "";
+    vector<char> AB;
+    int L = s.length();
+    for (int i{0}; i < L; i++)
+    {
+        AB.push_back(s[i]);
+    }
+    reverse(AB.begin(), AB.end());
+    for (int i{0}; i < L; i++)
+    {
+        h += AB[i];
+    }
+    return h;
+}
+string Plus(string A, int &N)
+{
+    string B;
+    B = change(A);
+    WX(A);
+    WX(B);
+    long long p{0}, q{0};
+    int A1 = A.length();
+    int B1 = B.length();
+    for (int i(0); i < A1; i++)
+    {
+        int k{0};
+        k = A[i] * pow(N, A1 - 1 - i);
+        p += k;
+    }
+    for (int i(0); i < B1; i++)
+    {
+        int k{0};
+        k = B[i] * pow(N, B1 - 1 - i);
+        q += k;
+    }
+    long long s{0};
+    s = p + q;
+    vector<int> S;
+    while (s > 0)
+    {
+        S.push_back(s % N);
+        s = s / N;
+    }
+    string ss = "";
+    int H{0};
+    H = S.size();
+    for (int i{0}; i < H; i++)
+    {
+        ss += S[i];
+    }
+    wx(ss);
+    return ss;
+}
+bool PD(string s)
+{
+    int k{0}, u{0};
+    k = s.length();
+    for (int i{0}; i < (k + 1) / 2; i++)
+    {
+        if (s[i] != s[k - 1 - i])
+            u++;
+    }
+    if (u == 0)
+        return true;
+    else
+        return false;
+}
+int r{1};
+void SC(string s, int &N)
+{
+    if (r > 30)
+    {
+        cout << "Impossible!";
+        return;
+    }
+    string h;
+    h = Plus(s, N);
+    if (PD(h))
+    {
+        cout << "STEP=" << r;
+        return;
+    }
+    else
+    {
+        r++;
+        SC(h, N);
+    }
+}
+int main()
+{
+    int N{0};
+    string M;
+    cin >> N;
+    cin >> M;
+    if (PD(M))
+    {
+        cout << "STEP=0";
+        return 0;
+    }
+    else SC(M, N);
+}
