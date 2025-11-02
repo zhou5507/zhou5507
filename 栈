@@ -1,0 +1,41 @@
+#include <iostream>
+using namespace std;
+long long A[20][20]{};
+long long WX(int n, int m) {
+	int a{ n }, acopy{ 0 }, b{ m }, bcopy{ 0};
+	long long result = 0;
+	if(A[a][b] != 0) {
+		return A[a][b];
+	}
+	if (a == 0) {
+		result = 1;
+		A[a][b] = result;
+		return result;
+	}
+	if (a != 0 && b != 0) {
+		acopy = n;
+		bcopy = m;
+		a--; b++;
+		result += WX(a, b);
+		a = acopy;
+		b = bcopy;
+		b--;
+		result += WX(a, b);
+	}
+	else
+	{
+		b++;
+		a--;
+		result += WX(a, b);
+	}
+	A[n][m] = result;
+	return
+		result;
+}
+int main() {
+	int N{ 0 };
+	cin >> N;
+	long long y{ 0 };
+	y = WX(N, 0);
+	cout << y;
+}
