@@ -1,0 +1,46 @@
+#include<iostream>
+#include<string>
+using namespace std;
+int A[50][50]{};
+int u{ 0 };
+void wx(int a,int b,int&m,int&n) {
+	if (a >= m || a < 0 || b < 0 || b >= n||u!=0)return;
+	if (A[a][b] == 3) {
+		cout << "Yes" << endl;
+		u++;
+		return;
+	}
+	if (A[a + 1][b] != 1) {
+		A[a][b] = 1;
+		wx(a + 1, b,m,n);
+	}
+	if (A[a - 1][b] !=1) {
+		A[a][b] = 1;
+		wx(a - 1, b,m,n);
+	}
+	if (A[a][b+1] !=1) {
+		A[a][b] = 1;
+		wx(a , b+1,m,n);
+	}
+	if (A[a][b-1] !=1) {
+		A[a][b] = 1;
+		wx(a, b-1,m,n);
+	}
+	return;
+}
+int main() {
+	int m{ 0 }, n{ 0 };
+	cin >> m >> n;
+	int x1{ 0 }, x2{ 0 }, y1{ 0 }, y2{ 0 };
+	for (int i{ 0 };i < m;i++) {
+		for (int j{ 0 };j < n;j++) {
+			cin >> A[i][j];
+			if (A[i][j] == 2) {
+				x1 = i;
+				y1 = j;
+			}
+		}
+	}
+	wx(x1, y1, m, n);
+	if (u == 0)cout << "No" << endl;
+}
