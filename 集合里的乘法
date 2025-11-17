@@ -1,0 +1,33 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+vector<int>A;
+int u{0};
+void wx(int k,int r,int &m){
+    if(u!=0)return;
+    int L=A.size();
+    if(r==m){
+        cout<<"YES"<<endl;
+        u++;
+        return;
+    }
+    for(int i{k};i<L;i++){
+        if(A[i]*r>m)return;
+        else{
+            wx(i+1,A[i]*r,m);
+        }
+    }
+}
+int main(){
+    int m{0},n{0};
+    cin>>m>>n;
+    for(int i{0};i<n;i++){
+        int k{0};
+        cin>>k;
+        A.push_back(k);
+    }
+    sort(A.begin(),A.end());
+    wx(0,1,m);
+    if(u==0)cout<<"NO";
+}
