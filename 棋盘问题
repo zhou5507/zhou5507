@@ -1,0 +1,43 @@
+#include <iostream>
+using namespace std;
+char A[9][9]{};
+bool C[9]; 
+int q{0}; 
+int t{0}; 
+void WX(int n, int k, int r, int c) {
+    if (c == k) {
+        q++; 
+        return;
+    }
+    if (r >= n) {
+        return;
+    }
+    for (int j = 0; j < n; ++j) {       
+        if (A[r][j] == '#' && !C[j]) {   
+            C[j] = true;  
+            WX(n, k, r + 1, c + 1);
+            C[j] = false; 
+        }
+    }
+    WX(n, k, r + 1, c);
+}
+int main() {
+    int n, k; 
+    while (cin >> n >> k) {
+        if (n == -1 && k == -1) {
+            return 0;
+        }
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                cin >> A[i][j];
+            }
+        }
+        q = 0; 
+        for (int i = 0; i < n; ++i) {
+            C[i] = false; 
+        }
+        WX(n, k, 0, 0); 
+        cout << q << endl;
+    }
+    return 0;
+}
