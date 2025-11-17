@@ -1,0 +1,55 @@
+#include <iostream>
+#include <sstream>
+#include <string>
+#include <vector>
+#include <algorithm>
+using namespace std;
+vector<int> A;
+int L = 0;
+int n = 0;
+void wx(int r, const int m, int k)
+{
+    if (r == m)
+    {
+        n++;
+        return;
+    }
+    if (r > m)
+    {
+        return;
+    }
+    for (int u = k; u < L; u++)
+    {
+        if (A[u] + r > m)
+        {
+             return;
+        }
+        wx(A[u] + r, m, u + 1);
+    }
+}
+int main()
+{
+    string s;
+    getline(cin, s);
+    stringstream ss(s);
+    int q = 0;
+    while (ss >> q)
+    {
+        A.push_back(q);
+    }
+    L = A.size();
+    sort(A.begin(), A.end());
+    while (true)
+    {
+        int m = 0;
+        cin >> m; 
+        if (m == 0)
+            return 0;
+        else
+        {
+            n = 0;
+            wx(0, m, 0);
+            cout << n <<endl;
+        }
+    }
+}
