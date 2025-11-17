@@ -1,0 +1,27 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+void wx(){
+    
+}
+int main(){
+    vector<int>A;
+    char a;
+    int i{0};
+    cin.get(a);
+    char p{};
+    while(p!='\n'){
+        i++;
+        char c;
+        cin.get(c);
+        if(c==a){
+            A.push_back(i);
+        }
+        else{
+            int L=A.size();
+            cout<<A[L-1]<<" "<<i<<endl;
+            A.erase(A.end());
+        }
+        p=cin.peek();
+    }
+}
