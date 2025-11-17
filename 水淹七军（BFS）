@@ -1,0 +1,71 @@
+#include <iostream>
+#include <queue>
+#include <algorithm>
+#include <vector>
+using namespace std;
+int A[202][202]{};
+int B[202][202]{};
+const int d[4] = {1, -1, 0, 0};
+const int e[4] = {0, 0, 1, -1};
+void f() {
+    int M, N;
+    cin >> M >> N;
+    for (int i = 0; i <= M + 1; i++) {
+        for (int j = 0; j <= N + 1; j++) {
+            A[i][j] =1001; B[i][j] = 1001; 
+        }
+    }
+    for (int i = 1; i <= M; i++) {
+        for (int j = 1; j <= N; j++) {
+            cin >> B[i][j];
+            A[i][j] = B[i][j];
+        }
+    }
+    int X, Y; 
+    cin >> X >> Y;
+    int k = B[X][Y];
+    int P; 
+    cin >> P;
+    queue<int> Q1, Q2; 
+    for (int p = 0; p < P; p++) {
+        int x, y;
+        cin >> x >> y;
+        A[x][y] ++; 
+        Q1.push(x);
+        Q2.push(y);
+    }
+    while (!Q1.empty()) {
+        int r = Q1.front(); 
+        int c = Q2.front(); 
+        Q1.pop();
+        Q2.pop();
+        int H = A[r][c];
+        for (int i = 0; i < 4; i++) {
+            int R = r + d[i];
+            int C = c + e[i];
+            if (R >= 1 && R <= M && C >= 1 && C <= N) {
+                int K = B[R][C]; 
+                if (H > K) {
+                    int T = H; 
+                    if (T > A[R][C]) {
+                        A[R][C] = T; 
+                        Q1.push(R);
+                        Q2.push(C);
+                    }
+                }
+            }
+        }
+    }
+    if (A[X][Y] > k) {
+        cout << "Yes" << endl;
+    } else {
+        cout << "No" << endl;
+    }
+}
+int main() {
+    int n{0};
+    cin >> n;
+    for(int i{0};i<n;i++){
+        f();
+    }
+}
