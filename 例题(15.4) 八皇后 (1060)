@@ -1,0 +1,45 @@
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+vector<string>A;
+string s="";
+void wx(int k){
+if(k==9){
+    A.push_back(s);
+    return;
+}
+    for (int i{1};i<9;i++){
+        int L=s.length();
+        int u{0};
+        for(int j{0};j<L;j++){
+            int y=s[j]-'0';
+            if(i-y==k-j-1||i-y==j-k+1||y==i){
+                u++;
+                break;
+            }
+        }
+        if(u==0){
+            char c=i+'0';
+            s+=c;
+            wx(k+1);
+            s.pop_back();
+        }
+    }
+}
+int main(){
+    wx(1);
+    int K{0};
+    K=A.size();
+    if(K!=92){
+        cout<<K<<endl;
+        return 0;
+    }
+    int n{0};
+    cin>>n;
+    for (int i{0};i<n;i++){
+        int p{0};
+        cin>>p;
+        cout<<A[p-1]<<endl;
+    }
+}
