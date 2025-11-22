@@ -1,0 +1,47 @@
+#include <iostream>
+#include <string>
+#include <cstdlib>
+#include <vector>
+#include <algorithm>
+using namespace std;
+int main()
+{
+    string s;
+    cin >> s;
+    bool B{true};
+    if (s[0] == '-')
+    {
+        s.erase(s.begin());
+        B = false;
+    }
+    int L = s.size();
+    vector<long long> D;
+    for (int a{1}; a < L - 1; a++)
+    {
+        for (int b{a + 1}; b < L; b++)
+        {
+            string A, B, C;
+            for (int i{0}; i < a; i++)
+            {
+                A += (s[i]);
+            }
+            for (int i{a}; i < b; i++)
+            {
+                B += (s[i]);
+            }
+            for (int i{b}; i < L; i++)
+            {
+                C += (s[i]);
+            }
+            long long k{0};
+            k = stoll(A) * stoll(B) * stoll(C);
+            D.push_back(k);
+        }
+    }
+    sort(D.begin(), D.end());
+    int P = D.size();
+    if (B)
+        cout << D[P - 1];
+    else
+        cout << "-" << D[0];
+}
