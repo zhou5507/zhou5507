@@ -1,0 +1,79 @@
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+long long f(const string& t) {
+    long long v = 0;
+    int s = 1;
+    int p = 0;
+    if (t[0] == '-') {
+        s = -1;
+        p = 1;
+    }
+    for (int i = p; i < (int)t.length(); i++) {
+        v = v * 10 + (t[i] - '0');
+    }
+    return v * s;
+}
+bool FX(const string& t) {
+    if (t.length() == 1) {
+        if (t[0] == '+') return true;
+        if (t[0] == '-') return true;
+        if (t[0] == '*') return true;
+        if (t[0] == '/') return true;
+    }
+    return false;
+}
+void wx() {
+    string c;
+    while(true){
+        vector<string> v;
+        while(cin>>c){
+            if(c == "@") break;
+            else v.push_back(c);
+        }
+        if (v.empty()) {
+             if (cin.eof()) break; 
+             else continue;
+        }
+        bool n = false;
+        for(int i = 0; i < (int)v.size(); i++){ 
+            if (FX(v[i])) {
+                if (i < 2) {
+                    n = true;
+                    break;
+                }
+                long long o2 = f(v[i-1]);
+                long long o1 = f(v[i-2]);
+                long long r = 0;
+                if (v[i] == "+"){
+                    r = o1 + o2;
+                } else if (v[i] == "*"){
+                    r = o1 * o2;
+                } else if (v[i] == "/"){
+                    if (o2 == 0) {
+                        n = true;
+                        break; 
+                    }
+                    r = o1 / o2;
+                } else if (v[i] == "-"){
+                    r = o1 - o2;
+                }
+                v[i-2] = to_string(r);
+                v.erase(v.begin() + i - 1, v.begin() + i + 1); 
+                i = i - 3; 
+            }
+        }
+        if (n) {
+            cout << "NaN" << endl;
+        } else if (v.size() == 1) {
+            cout << f(v[0]) << endl;
+        } else {
+            cout << "NaN" << endl;
+        }
+    }
+}
+int main(){
+    wx();
+    return 0;
+}
