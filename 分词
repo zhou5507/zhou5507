@@ -1,0 +1,50 @@
+#include <iostream>
+#include <string>
+using namespace std;
+string A[100];
+void wx(string s,int &l,int &m){
+    int L=s.length();
+    if(L%l!=0){
+        cout<<"No"<<endl;
+        return;
+    }
+    else{
+        int f{0};
+        while(f!=L/l){
+        string d="";
+        for (int i{0};i<l;i++){
+            d+=s[0];
+            s.erase(s.begin());
+        }
+        int uu{0};
+        for (int i{0};i<m;i++){
+            if(A[i]==d){
+                uu++;
+                break;
+            }
+        }
+        if(uu==0){
+            cout<<"No"<<endl;
+            return;
+        }
+        f++;
+    }
+    cout<<"Yes"<<endl;
+    return;
+    }
+}
+
+int main(){
+    int m{0},n{0},l{0};
+    cin>>m>>n;
+    for (int i{0};i<m;i++){
+        cin>>A[i];
+
+    }
+    l=A[0].length();
+    for (int i{0};i<n;i++){
+        string s;
+        cin>>s;
+        wx(s,l,m);
+    }
+}
