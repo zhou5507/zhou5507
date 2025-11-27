@@ -1,0 +1,99 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+vector <int>A;
+int q{ 0 };
+int MA(int a, int b)
+{
+	return (a > b) ? a : b;
+}
+int WX(int TI, int RR)
+{
+	if (TI < 0 || RR >= A.size() || TI > RR) {
+		cerr << "EE" << endl;
+		return 0;
+	}
+	if (TI == RR) {
+		return A[TI];
+	}
+	int PI = A[TI];
+	int PE = 0;
+	for (int CI = TI + 1; CI <= RR; ++CI) {
+		int NE = MA(PI, PE);
+		int NI = PE + A[CI];
+		PI = NI;
+		PE = NE;
+	}
+	return MA(PI, PE);
+}
+void wx(int x, int L, int p) {
+	int t{ 0 };
+	int y{ 0 };
+	for (int i{ x };i < L;i++) {
+		if (A[i] > 0) {
+			t = i;
+			y++;
+			break;
+		}
+	}
+	if (y == 0) {
+		if (q < p)q = p;
+		return;
+	}
+	if (t < L - 2) {
+		if (A[t + 1] <= 0) {
+			p += A[t];
+			wx(t + 2, L, p);
+		}
+		else {
+			int r{ 0 }, b{ 0 }, s{ 0 };
+			for (int i{ t + 1 };i < L;i++) {
+				if (A[i] < 0) {
+					r = i;
+					s++;
+					break;
+				}
+			}
+			if (s == 0) {
+				r = L;
+				p += WX(t, r - 1);
+				wx(r, L, p);
+			}
+			else {
+				int z{ 0 };
+				for (int i{ r };i < L;i++) {
+					if (A[i] > 0) {
+						b = i;
+						z++;
+						break;
+					}
+				}
+				if (z == 0) {
+					p += WX(t, r - 1);
+					if (q < p)q = p;
+					return;
+				}
+				else {
+					p += WX(t, r - 1);
+					wx(b, L, p);
+				}
+			}
+		}
+	}
+	else {
+		p += A[t];
+		if (q < p)q = p;
+		return;
+	}
+}
+int main() {
+	int n{ 0 };
+	cin >> n;
+	for (int i{ 0 };i < n;i++) {
+		int k{ 0 };
+		cin >> k;
+		A.push_back(k);
+	}
+	wx(0, n, 0);
+	cout << q << endl;
+}
