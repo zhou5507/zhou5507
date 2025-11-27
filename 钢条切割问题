@@ -1,0 +1,29 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+vector<int> P;
+vector<int> R;
+int N{ 0 };
+void WX() {
+    R.resize(N + 1, 0);
+    for (int J = 1; J <= N; J++) {
+        int M = 0;
+        for (int I = 1; I <= J; I++) {
+            int C = P[I - 1] + R[J - I];
+            M = max(M, C);
+        }
+        R[J] = M;
+    }
+}
+int main() {
+    cin >> N;
+    for (int i{ 0 };i < N;i++) {
+        int k{ 0 };
+        cin >> k;
+        P.push_back(k);
+    }
+    WX();
+    cout << R[N] << endl;
+    return 0;
+}
