@@ -1,0 +1,64 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+int A[4][4]{};
+int wx(int& x1, int& x2, int& y1, int& y2) {
+	int u{ 0 };
+	for (int i{ x1 };i <= x2;i++) {
+		for (int j{ y1 };j <= y2;j++) {
+			u += A[i][j];
+		}
+	}
+	return u;
+}
+int main() {
+	int m{ 0 };
+	cin >> m;
+	for (int i{ 0 };i < m;i++) {
+		for (int j{ 0 };j < m;j++) {
+			cin >> A[i][j];
+		}
+	}
+	vector<int>B,X1,X2,Y1,Y2;
+	for (int x1{ 0 };x1 < m;x1++) {
+		for (int x2{ x1 };x2 < m;x2++) {
+			for (int y1{ 0 };y1 < m;y1++) {
+				for (int y2{ 0 };y2 < m;y2++) {
+					int k = wx(x1, x2, y1, y2);
+					B.push_back(k);
+					X1.push_back(x1);
+					X2.push_back(x2);
+					Y1.push_back(y1);
+					Y2.push_back(y2);
+				}
+			}
+		}
+	}
+	int h{ 0 };
+	int g{ 0 };
+	int L = B.size();
+	for (int i{ 0 };i < L;i++) {
+		if (B[i] > h) {
+			h = B[i];
+			g = i;
+		}
+	}
+	int x1 = X1[g];
+	int x2 = X2[g];
+	int y1 = Y1[g];
+	int y2 = Y2[g];
+	for (int i{ x1 };i <= x2;i++) {
+		int u{ 0 };
+		for (int j{ y1 };j <= y2;j++) {
+			if (u == 0) {
+				cout << A[i][j];
+				u++;
+			}
+			else {
+				cout <<" " <<A[i][j];
+			}
+		}
+		cout << endl;
+	}
+	cout << B[g] << endl;
+}
