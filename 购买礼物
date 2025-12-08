@@ -1,0 +1,34 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+int main() {
+	int m{ 0 };
+	int n{ 0 };
+	cin >> m >> n;
+	vector <int>A, B;
+	for (int i{ 0 };i < m;i++) {
+		int a{ 0 }, b{ 0 };
+		cin >> a >> b;
+		A.push_back(a);
+		B.push_back(b);
+	}
+	for (int i{ 0 };i < m-1;i++) {
+		for (int j{ 0 };j < m - i-1;j++) {
+			if (B[j] < B[j+1]) {
+				swap(B[j], B[j + 1]);
+				swap(A[j], A[j + 1]);
+			}
+		}
+	}
+	int t{ 0 };
+	int M{ 0 };
+	for (int i{ 0 };i < m;i++) {
+		if (M + A[i] <= n) {
+			t++;
+			M += A[i];
+		}
+		else break;
+	}
+	cout << t << endl;
+}
