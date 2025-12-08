@@ -1,0 +1,107 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+using namespace std;
+string SUM(string a, string b) {
+	bool P{ true };
+	int LA = a.length();
+	int LB = b.length();
+	int L{ 0 };
+	if (LA > LB) {
+		L = LB;
+		P = true;
+	}
+	else {
+		L = LA;
+		P = false;
+	}
+	string s;
+	int f{ 0 };
+	for (int i{ 0 };i < L;i++) {
+		int a1 = a[i] - '0';
+		int a2 = b[i] - '0';
+		if (a1 + a2 + f < 10) {
+			int k = a1 + a2 + f;
+			char  d = k + '0';
+			s += d;
+			f = 0;
+		}
+		else {
+			int k = a1 + a2 + f-10;
+			char  d = k + '0';
+			s += d;
+			f = 1;
+		}
+	}
+	if (LA == LB&&f==1) {
+		s += '1';
+		f = 0;
+	}
+	if (P) {
+		for (int i{ L };i < LA;i++) {
+			if (f == 1) {
+				int a1 = a[i] - '0';
+				int k = a1 + 1;
+				if (k == 10) {
+					s += '0';
+					f = 1;
+				}
+				else {
+					char d = k + '0';
+					s += d;
+					f = 0;
+				}
+			}
+			else s += a[i];
+		}
+	}
+	else {
+		for (int i{ L };i < LB;i++) {
+			if (f == 1) {
+				int a1 = b[i] - '0';
+				int k = a1 + 1;
+				if (k == 10) {
+					s += '0';
+					f = 1;
+				}
+				else {
+					char d = k + '0';
+					s += d;
+					f = 0;
+				}
+			}
+			else s += b[i];
+		}
+	}
+	if (f == 1)s += '1';
+	return s;
+}
+int main() {
+	int n{ 0 };
+	cin >> n;
+	string A[100];
+	for (int i{ 0 };i < n;i++) {
+		string h;
+		cin >> h;
+		int L = h.length();
+		int y{ 0 };
+		for (int j{ 0 };j < L;j++) {
+			if (h[j] != '0') {
+				y = j;
+				break;
+			}
+		}
+		h.erase(0, y);
+		reverse(h.begin(), h.end());
+		A[i] = h;
+	}
+	string ss = A[0];
+	for (int i{ 1 };i < n;i++) {
+		string ss1;
+		ss1 = SUM(ss, A[i]);
+		ss = ss1;
+	}
+	reverse(ss.begin(), ss.end());
+	cout << ss << endl;
+}
