@@ -1,0 +1,49 @@
+#include <iostream>
+#include <algorithm>
+int A[200][200]{}, B[200][200]{}, R[200]{}, L[200]{};
+using namespace std;
+void wx(int n) {
+	L[0] = A[0][0];R[n - 1] = A[0][n - 1];
+	for (int i{ 1 };i < n;i++) {
+		L[i] = max(A[0][i] + L[i - 1], A[0][i]);
+	}
+	for (int i{ n - 2 };i >= 0;i--) {
+		R[i] = max(A[0][i] + R[i + 1], A[0][i]);
+	}
+	for (int i{ 0 };i < n;i++) {
+		B[0][i] = max(L[i], R[i]);
+	}
+}
+void WX(int m, int n) {
+	L[0] = A[m][0] + B[m - 1][0];R[n - 1] = A[m][n - 1] + B[m - 1][n - 1];
+	for (int i{ 1 };i < n;i++) {
+		L[i] = max(A[m][i] + L[i - 1], A[m][i] + B[m - 1][i]);
+	}
+	for (int i{ n - 2 };i >= 0;i--) {
+		R[i] = max(A[m][i] + R[i + 1], A[m][i] + B[m - 1][i]);
+	}
+	for (int i{ 0 };i < n;i++) {
+		B[m][i] = max(L[i], R[i]);
+	}
+}
+int main() {
+		int m{ 0 }, n{ 0 };
+		while (cin >> m >> n) {
+			for (int i{ 0 };i < m;i++) {
+				for (int j{ 0 };j < n;j++) {
+					cin >> A[m - 1 - i][j];
+				}
+			}
+			wx(n);
+			for (int i{ 1 };i < m;i++) {
+				WX(i, n);
+			}
+			int t{ -1000000 };
+			for (int i{ 0 };i < n;i++) {
+				if (B[m - 1][i] > t) {
+					t = B[m - 1][i];
+				}
+			}
+			cout << t << endl;
+		}
+}
