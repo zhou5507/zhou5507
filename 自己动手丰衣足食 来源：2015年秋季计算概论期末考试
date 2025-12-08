@@ -1,0 +1,43 @@
+#include <iostream>
+#include <iomanip>
+#include <string>
+#include <cstdlib>
+#include <cmath>
+using namespace std;
+double wx(string s) {
+	int L = s.length();
+	int l = s.find('f');
+	if (l!=string::npos) {
+		string s1 = s.substr(0, l);
+		string s2 = s.substr(l + 1, L - l - 1);
+		double b1 = stod(s1);
+		int b2 = stoi(s2);
+		double g{ 0 };
+		g = b1 * pow(10, b2);
+		return g;
+	}
+	else {
+		double g{ 0 };
+		g = stod(s);
+		return g;
+	}
+}
+int main() {
+	while (true) {
+		string s;
+		cin >> s;
+		if (s[0] == 'q') {
+			break;
+		}
+		else {
+			if (s[0] == '-') {
+				cout << "-";
+				s.erase(0, 1);
+			}
+			else if (s[0] == '+')s.erase(0, 1);
+			else s = s;
+			double t=wx(s);
+			cout << fixed << setprecision(6) << t << endl;
+		}
+	}
+}
