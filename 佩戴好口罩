@@ -1,0 +1,75 @@
+#include <iostream>
+#include <iomanip>
+#include <vector>
+#include <algorithm>
+using namespace std;
+int d{ 0 };
+const int dx[4]{ 0,0,1,-1 };
+const int dy[4]{ 1,-1,0,0 };
+int n{ 0 };
+int C[102][102]{};
+void wx(vector<vector<int>>&A) {
+	int B[102][102]{};
+	for (int i{ 0 };i < n + 2;i++) {
+		for (int j{ 0 };j < n + 2;j++) {
+			B[i][j] = A[i][j];
+		}
+	}
+	for (int i{ 0 };i < n + 2;i++) {
+		for (int j{ 0 };j < n + 2;j++) {
+			if (C[i][j] == 0&&B[i][j]==0) {
+				int u{ 0 };
+				for (int v{ 0 };v < 4;v++) {
+					int x1 = i + dx[v];
+					int y1 = j + dy[v];
+					if (A[x1][y1] == 1&&C[x1][y1]==0) {
+						u++;
+						break;
+					}
+				}
+				if (u != 0)B[i][j]++;
+			}
+			if (C[i][j] == 1 && B[i][j] == 0) {
+				int u{ 0 };
+				for (int v{ 0 };v < 4;v++) {
+					int x1 = i + dx[v];
+					int y1 = j + dy[v];
+					if (A[x1][y1] != 1||C[x1][y1]==1) {
+						u++;
+						break;
+					}
+				}
+				if (u == 0)B[i][j]++;
+			}
+		}
+	}
+	for (int i{ 0 };i < n + 2;i++) {
+		for (int j{ 0 };j < n + 2;j++) {
+			A[i][j] = B[i][j];
+		}
+	}
+}
+int main() {
+	cin >> n;
+	vector<vector<int>>A(n + 2, vector<int>(n + 2, 5));
+	for (int i{ 1 };i <= n;i++) {
+		for (int j{ 1 };j <= n;j++) {
+			cin >> C[i][j];
+			A[i][j] = 0;
+		}
+	}
+	int x{ 0 }, y{ 0 };
+	cin >> x >> y;
+	A[x+1][y+1] = 1;
+	cin >> d;
+	for (int i{ 0 };i < d;i++) {
+		wx(A);
+	}
+	int h{ 0 };
+	for (int i{ 0 };i < n + 2;i++) {
+		for (int j{ 0 };j < n + 2;j++) {
+			if (A[i][j] == 1)h++;
+		}
+	}
+	cout << h << endl;
+}
