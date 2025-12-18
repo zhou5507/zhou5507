@@ -1,0 +1,62 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+vector<vector<int>> A(10, vector<int>(10, -5));
+const int dx[4] = {1, 0, -1, 0};
+const int dy[4] = {0, 1, 0, -1};
+bool visited[10][10] = {false};
+int n{0};
+void wx(int x, int y, int k)
+{
+    visited[x][y] = true;
+    for (int i = 0; i < 4; i++)
+    {
+        int nx = x + dx[i];
+        int ny = y + dy[i];
+        if (nx < 0 || ny < 0 || nx >=n || ny >=n)
+            continue;
+        if (!visited[nx][ny] && A[nx][ny] == A[x][y])
+        {
+            wx(nx, ny, k);
+        }
+    }
+    A[x][y] = k;
+}
+int main()
+{
+    int r{0};
+    cin >> r;
+    for (int o = 1; o <= r; o++)
+    {
+        cin >> n;
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < n; j++)
+            {
+                visited[i][j] =false;
+            }
+        }
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < n; j++)
+            {
+                int t{0};
+                cin >> t;
+                A[i][j] = t - 2;
+            }
+        }
+        int p{0};
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < n; j++)
+            {
+                if (A[i][j] < 0)
+                {
+                    wx(i, j, p);
+                    p++;
+                }
+            }
+        }
+        cout << p << endl;
+    }
+}
