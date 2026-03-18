@@ -1,0 +1,44 @@
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+void getNext(const string& T, vector<int>& next) {
+    int j = 0;
+    next[0] = 0;
+    for (int i = 1; i < T.size(); i++) {
+        while (j > 0 && T[i] != T[j]) {
+            j = next[j - 1];
+        }
+        if (T[i] == T[j]) {
+            j++;
+        }
+        next[i] = j;
+    }
+}
+int kmpSearch(const string& S, const string& T) {
+    int n = S.size(), m = T.size();
+    vector<int> next(m);
+    getNext(T, next);
+    int j = 0; 
+    for (int i = 0; i < n; i++) { 
+        while (j > 0 && S[i] != T[j]) {
+            j = next[j - 1]; 
+        }
+        if (S[i] == T[j]) {
+            j++;
+        }
+        if (j == m) {
+            return i - m + 1; 
+        }
+    }
+    return -1;
+}
+int main() {
+    int t;
+    cin>>t;
+    for(int k=0;k<t;k++){ 
+        string S, T;
+        cin >> S >> T;
+        cout << kmpSearch(S, T) << endl;
+    }
+}
