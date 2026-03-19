@@ -1,0 +1,60 @@
+#include <iostream>
+#include <string>
+#include <cmath>
+#include <vector>
+
+using namespace std;
+
+struct Node {
+    string n;
+    double x, y;
+    Node* next;
+};
+
+int main() {
+    system("chcp 65001");
+
+    int num;
+    cin >> num;
+
+    Node* h = new Node;
+    h->next = NULL;
+    Node* r = h;
+    for (int i = 0; i < num; ++i) {
+        Node* p = new Node;
+        cin >> p->n >> p->x >> p->y;
+        p->next = NULL;
+        r->next = p;
+        r = p;
+    }
+
+    int qn;
+    cin >> qn;
+
+    while (qn--) {
+        double px, py, d;
+        cin >> px >> py >> d;
+
+        Node* c = h->next;
+        bool first = true;
+        bool found = false;
+
+        while (c) {
+
+            double dist = sqrt(pow(c->x - px, 2) + pow(c->y - py, 2));
+            
+            if (dist <= d) {
+                if (!first) cout << " ";
+                cout << c->n;
+                first = false;
+                found = true;
+            }
+            c = c->next;
+        }
+
+        if (!found) cout << "未找到地点";
+        cout << endl;
+    }
+
+    return 0;
+}
