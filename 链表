@@ -1,0 +1,42 @@
+#include <iostream>
+#include <string>
+#include <iomanip>
+using namespace std;
+struct Node {
+    string n;
+    double x, y;
+    Node* next;
+};
+int main() {
+    system("chcp 65001"); 
+    int num;
+    cin >> num;
+    Node* h = new Node;
+    h->next = NULL;
+    Node* r = h;
+    for (int i = 0; i < num; ++i) {
+        Node* p = new Node;
+        cin >> p->n >> p->x >> p->y;
+        p->next = NULL;
+        r->next = p;
+        r = p;
+    }
+    int sn;
+    cin >> sn;
+    while (sn--) {
+        string t;
+        cin >> t;
+        Node* c = h->next;
+        bool f = false;
+        while (c) {
+            if (c->n == t) {
+                cout << fixed << setprecision(1) << c->x << " " << c->y << endl;
+                f = true;
+                break;
+            }
+            c = c->next;
+        }
+        if (!f) cout << "未找到该地点" << endl;
+    }
+    return 0;
+}
