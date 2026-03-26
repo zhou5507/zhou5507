@@ -1,0 +1,41 @@
+#include <iostream>
+#include <string>
+#include <sstream>
+#include <stack>
+#include <vector>
+#include <algorithm> 
+#include <iomanip>
+#include <cstdlib>
+using namespace std;
+
+int main() {
+    string l;
+    if (getline(cin, l)) {
+        stringstream ss(l);
+        string t;
+        vector<string> v;
+        while (ss >> t) {
+            v.push_back(t);
+        }
+        reverse(v.begin(), v.end());
+        stack<double> s;
+        for (int j = 0; j < v.size(); j = j + 1) {
+            string c = v[j];
+            if (c == "+" || c == "-" || c == "*" || c == "/") {
+                double a = s.top();
+                s.pop();
+                double b = s.top();
+                s.pop();
+                if (c == "+") s.push(a + b);
+                else if (c == "-") s.push(a - b);
+                else if (c == "*") s.push(a * b);
+                else if (c == "/") s.push(a / b);
+            }
+            else {
+                s.push(stod(c));
+            }
+        }
+        cout << fixed << setprecision(6) << s.top() << endl;
+    }
+    return 0;
+}
