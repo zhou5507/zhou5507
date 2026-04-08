@@ -1,0 +1,77 @@
+#include <iostream>
+#include <string>
+#include <stack>
+
+using namespace std;
+
+int p(char c) {
+    if (c == '%') return 3;
+    if (c == '*' || c == '/') return 2;
+    if (c == '+' || c == '-') return 1;
+    return 0;
+}
+
+void WX(stack<int>& s, stack<char>& r, bool& E) {
+    if (s.size() < 2 || r.empty()) return;
+    int b = s.top(); s.pop();
+    int a = s.top(); s.pop();
+    char c = r.top(); r.pop();
+    
+    if ((c == '/' || c == '%') && b == 0) {
+        E = true;
+        s.push(0); 
+        return;
+    }
+    
+    if (c == '+') s.push(a + b);
+    else if (c == '-') s.push(a - b);
+    else if (c == '*') s.push(a * b);
+    else if (c == '/') s.push(a / b);
+    else if (c == '%') s.push(a % b);
+}
+
+void solve() {
+    string m;
+    if (!(cin >> m)) return;
+    
+    stack<int> s;
+    stack<char> r;
+    bool E = false;
+    
+    for (int i = 0; i < (int)m.size(); ++i) {
+        if (E) break;
+        if (m[i] >= '0' && m[i] <= '9') {
+            int v = 0;
+            while (i < (int)m.size() && m[i] >= '0' && m[i] <= '9') {
+                v = v * 10 + (m[i] - '0');
+                ++i;
+            }
+            --i;
+            s.push(v);
+        } else if (m[i] == '(') {
+            r.push('(');
+        } else if (m[i] == ')') {
+            while (!r.empty() && r.top() != '(') WX(s, r, E);
+            if (!r.empty()) r.pop();
+        } else {
+            int cur = p(m[i]);
+            while (!r.empty() && r.top() != '(' && p(r.top()) >= cur) {
+                WX(s, r, E);
+            }
+            r.push(m[i]);
+        }
+    }
+    
+    while (!r.empty() && !E) WX(s, r, E);
+    
+    if (E) cout << "NaN" << endl;
+    else if (!s.empty()) cout << s.top() << endl;
+}
+
+int main() {
+    int n = 0;
+    if (cin >> n) {
+        while (n--) solve();
+    }
+    return 0;
+}
