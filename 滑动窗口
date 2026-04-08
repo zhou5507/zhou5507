@@ -1,0 +1,33 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+const int M = 1000005;
+int a[M], q[M]; 
+int n, k;
+void WX(bool A) {
+    int h = 0, t = 0;
+    for (int i = 0; i < n; i++) {
+        if (h < t && q[h] <= i - k) h++;
+        while (h < t) {
+            if (A) {
+                if (a[q[t - 1]] >= a[i]) t--;
+                else break;
+            } else {
+                if (a[q[t - 1]] <= a[i]) t--;
+                else break;
+            }
+        }
+        q[t++] = i;
+        if (i >= k - 1) {
+            cout << a[q[h]] << (i == n - 1 ? "" : " ");
+        }
+    }
+    cout << '\n';
+}
+int main() {
+    if (!(cin >> n >> k)) return 0;
+    for (int i = 0; i < n; i++) cin >> a[i];
+    WX(true);  
+    WX(false); 
+    return 0;
+}
