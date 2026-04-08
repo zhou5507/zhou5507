@@ -1,0 +1,38 @@
+#include <iostream>
+#include <vector>
+#include <deque>
+
+using namespace std;
+
+void WX(int n, int k, const vector<int>& a, bool F) {
+    deque<int> q;
+    for (int i = 0; i < n; i++) {
+        if (!q.empty() && q.front() <= i - k) q.pop_front();
+        while (!q.empty()) {
+            if (F) {
+                if (a[q.back()] >= a[i]) q.pop_back();
+                else break;
+            } else {
+                if (a[q.back()] <= a[i]) q.pop_back();
+                else break;
+            }
+        }
+        q.push_back(i);
+        if (i >= k - 1) {
+            cout << a[q.front()] << (i == n - 1 ? "" : " ");
+        }
+    }
+    cout << '\n';
+}
+
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    int n, k;
+    if (!(cin >> n >> k)) return 0;
+    vector<int> a(n);
+    for (int i = 0; i < n; i++) cin >> a[i];
+    WX(n, k, a, true);
+    WX(n, k, a, false);
+    return 0;
+}
