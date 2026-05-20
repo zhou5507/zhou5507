@@ -1,0 +1,43 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+struct Node{
+    int id;
+    vector<Node*>childs;
+};
+Node* tree[10005];
+int d[10005];
+void WX(Node* u){
+    for(Node*v:u->childs){
+        d[v->id]=d[u->id]+1;
+        WX(v);
+    }
+}
+int main(){
+    int n{0};
+    cin>>n;
+    for (int i = 1; i <= n; ++i) {
+        tree[i] = new Node();
+        tree[i]->id = i;
+    }
+    Node* root = nullptr;
+    for (int i = 1; i <= n; ++i) {
+        int p;
+        cin >> p;
+        if (p == -1) {
+            root = tree[i]; 
+        } else {
+            tree[p]->childs.push_back(tree[i]);
+        }
+    }
+    if (root != nullptr) {
+        d[root->id] = 0;
+        WX(root);
+    }
+    for (int i = 1; i <= n; ++i) {
+        cout << d[i] << "\n";
+    }
+    for (int i = 1; i <= n; ++i) {
+        delete tree[i];
+    }
+}
