@@ -1,0 +1,49 @@
+#include <iostream>
+using namespace std;
+struct Node2{
+    int id;
+    Node2* lchild=nullptr;
+    Node2* rchild=nullptr;
+};
+Node2* tree[1000];
+bool A{false};
+void PRE(Node2* root) {
+    if (root == nullptr) return;
+    if(A)cout <<" " <<root->id;
+    else {cout<<root->id;A=true;}
+    PRE(root->lchild);
+    PRE(root->rchild);
+}
+void WX(int i,int m,Node2* temp){
+    if(m>temp->id){
+        if(temp->rchild==nullptr){
+            temp->rchild=tree[i];
+        }
+        else WX(i,m,temp->rchild);
+    }
+    else if(m<temp->id){
+        if(temp->lchild==nullptr){
+            temp->lchild=tree[i];
+        }
+        else WX(i,m,temp->lchild);
+    }
+    else return;
+}
+int main(){
+    int i{0};
+    tree[0]=new Node2();
+    int t{0};
+    cin>>t;
+    tree[0]->id=t;
+    int m{0};
+    while(cin>>m){
+        i++;
+        tree[i]=new Node2();
+        tree[i]->id=m;
+        WX(i,m,tree[0]);
+    }
+    PRE(tree[0]);
+    for(int j{0};j<=i;j++){
+        delete tree [j];
+    }
+}
