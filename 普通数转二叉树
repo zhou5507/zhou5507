@@ -1,0 +1,66 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+struct Node{
+    char data;
+    vector<Node*>child;
+};
+struct Node2{
+    char data;
+    Node2* lchild=nullptr;
+    Node2* rchild=nullptr;
+};
+Node* tree[100];
+Node2* WX(Node* root){
+    if (root == nullptr) return nullptr;
+    Node2* bRoot = new Node2();
+    bRoot->data = root->data;
+    if (!root->child.empty()) {
+        bRoot->lchild = WX(root->child[0]);
+        Node2* temp = bRoot->lchild;
+        for (size_t i = 1; i < root->child.size(); ++i) {
+            temp->rchild = WX(root->child[i]);
+            temp = temp->rchild;
+        }
+    }
+    return bRoot;
+}
+void PRE(Node2* root) {
+    if (root == nullptr) return;
+    cout << root->data;
+    PRE(root->lchild);
+    PRE(root->rchild);
+}
+void POST(Node2* root) {
+    if (root == nullptr) return;
+    POST(root->lchild); 
+    POST(root->rchild); 
+    cout << root->data; 
+}
+int main(){
+    int n{0};
+    cin>>n;
+    for (int i = 1; i <= n; ++i) {
+        tree[i] = new Node();
+    }
+    for(int i{1};i<=n;i++){
+        char c;
+        cin>>c;
+        tree[i]->data=c;
+        bool A{1};
+        while(A){
+            int p{0};
+            cin>>p;
+            if(p!=0)
+            tree[i]->child.push_back(tree[p]);
+            else A=false;
+        }
+    }
+    Node2* ss=WX(tree[1]);
+    PRE(ss);
+    cout<<endl;
+    POST(ss);
+    for (int i = 1; i <= n; ++i) {
+        delete tree[i];
+    }
+}
